@@ -12,8 +12,11 @@ gem 'asir'
 require 'asir'
 require 'asir/coder/chain'
 require 'asir/coder/marshal'
+require 'asir/transport/delegation'
+require 'asir/transport/buffer'
 ASIR::Log.enabled = true unless ENV['ASIR_EXAMPLE_SILENT']
 require 'sample_service'
+require 'delayed_service'
 
 require 'pp'
 
