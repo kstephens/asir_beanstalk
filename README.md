@@ -1,6 +1,6 @@
-# AsirBeanstalk
+# asir_beanstalk
 
-TODO: Write a gem description
+Beanstalk ASIR transport.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+See example/.
 
 ## Contributing
 
