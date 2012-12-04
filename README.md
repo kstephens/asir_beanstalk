@@ -20,6 +20,14 @@ Or install it yourself as:
 
 See example/.
 
+## Dependencies
+
+### beanstalkd
+
+Run "rake prereq" to install:
+* OS X: sudo port install beanstalkd
+* Debian: sudo apt-get install beanstalkd
+
 ## Contributing
 
 1. Fork it
