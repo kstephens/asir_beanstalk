@@ -10,7 +10,7 @@ module ASIR
       attr_accessor :tube, :priority, :delay, :ttr
 
       def initialize *args
-        @port ||= 11300
+        self.port_default ||= 11300
         @tube ||= 'asir'
         @priority ||= 0
         @delay ||= 0
