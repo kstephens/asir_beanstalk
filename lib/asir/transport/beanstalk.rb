@@ -7,15 +7,31 @@ module ASIR
     class Beanstalk < TcpSocket
       LINE_TERMINATOR = "\r\n".freeze
 
-      attr_accessor :tube, :priority, :delay, :ttr
+      attr_accessor :tube, :tube_default
+      attr_accessor :priority, :delay, :ttr
 
       def initialize *args
-        self.port_default ||= 11300
-        @tube ||= 'asir'
+        self.scheme_default ||= 'beanstalk'
+        self.host_default   ||= '127.0.0.1'
+        self.port_default   ||= 11300
+        self.tube_default   ||= 'asir'
         @priority ||= 0
         @delay ||= 0
         @ttr ||= 600
         super
+      end
+
+      def tube
+        @tube ||=
+          @uri && (
+            p = _uri.path.sub(%r{\A/}, '')
+            p = nil if x.empty?
+            p
+          ) || tube_default
+      end
+
+      def path_default
+        "/#{tube}"
       end
 
       # !SLIDE
