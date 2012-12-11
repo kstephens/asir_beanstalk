@@ -23,8 +23,8 @@ module ASIR
       def _send_message message, message_payload
         stream.with_stream! do | s |
           begin
-            match = 
-              _beanstalk(s, 
+            match =
+              _beanstalk(s,
                          "put #{message[:beanstalk_priority] || @priority} #{message[:beanstalk_delay] || @delay} #{message[:beanstalk_ttr] || @ttr} #{message_payload.size}\r\n",
                          /\AINSERTED (\d+)\r\n\Z/,
                          message_payload)
@@ -45,12 +45,12 @@ module ASIR
       def _receive_message channel, additional_data
         channel.with_stream! do | stream |
           begin
-            match = 
+            match =
               _beanstalk(stream,
                          RESERVE,
                          /\ARESERVED (\d+) (\d+)\r\n\Z/)
             additional_data[:beanstalk_job_id] = match[1].to_i
-            additional_data[:beanstalk_message_size] = 
+            additional_data[:beanstalk_message_size] =
               size = match[2].to_i
             message_payload = stream.read(size)
             _read_line_and_expect! stream, /\A\r\n\Z/
@@ -72,7 +72,7 @@ module ASIR
         # There is a possibility here the following could happen:
         #
         #   _receive_message
-        #     channel == #<Channel:1>   
+        #     channel == #<Channel:1>
         #     channel.stream == #<TCPSocket:1234>
         #   end
         #   ...
@@ -80,7 +80,7 @@ module ASIR
         #      channel.stream.close
         #      channel.stream = nil
         #   ...
-        #   _send_result 
+        #   _send_result
         #     channel == #<Channel:1>
         #     channel.stream == #<TCPSocket:5678> # NEW CONNECTION
         #     stream.write "delete #{job_id}"
@@ -148,7 +148,7 @@ module ASIR
                            :try_sleep_increment => 0.1,
                            :try_sleep_max => 10) do | stream |
           if @tube
-            _beanstalk(stream, 
+            _beanstalk(stream,
                        "watch #{@tube}\r\n",
                        /\AWATCHING (\d+)\r\n\Z/)
           end
