@@ -173,8 +173,8 @@ module ASIR
       end
 
       def _start_conduit!
-        addr = address ? "-l #{address} " : ""
-        cmd = "beanstalkd #{addr}-p #{port}"
+        opt = host ? "-l #{host} " : ""
+        cmd = "beanstalkd #{opt}-p #{port}"
         $stderr.puts "  #{cmd}" if @conduit_options[:verbose]
         exec(cmd)
       end
