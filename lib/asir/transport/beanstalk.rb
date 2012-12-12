@@ -5,8 +5,6 @@ module ASIR
     # !SLIDE
     # Beanstalk Transport
     class Beanstalk < TcpSocket
-      LINE_TERMINATOR = "\r\n".freeze
-
       attr_accessor :tube, :tube_default
       attr_accessor :priority, :delay, :ttr
 
@@ -146,6 +144,8 @@ module ASIR
         end
         match
       end
+
+      LINE_TERMINATOR = "\r\n".freeze
 
       def _after_connect! stream
         if @tube
