@@ -25,7 +25,7 @@ module ASIR
         @tube ||=
           @uri && (
             p = _uri.path.sub(%r{\A/}, '')
-            p = nil if x.empty?
+            p = nil if p.empty?
             p
           ) || tube_default
       end
