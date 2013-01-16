@@ -108,6 +108,7 @@ module ASIR
         _beanstalk(stream,
          "delete #{job_id}\r\n",
          /\ADELETED\r\n\Z/)
+        # state.in_stream.close # Force close.
       end
 
       # !SLIDE
@@ -137,8 +138,7 @@ module ASIR
           stream.write payload
           stream.write LINE_TERMINATOR
         end
-        stream.flush
-        if match = _read_line_and_expect!(stream, expect)
+        if match = _read_line_and_expect!(stream, expect) # , /\A(BAD_FORMAT|UNKNOWN_COMMAND)\r\n\Z/)
           _log { [ :_beanstalk, :result, match[0] ] } if @verbose >= 3
         end
         match
