@@ -6,7 +6,7 @@ require 'asir/transport/beanstalk'
 require 'asir/transport/buffer'
 begin
   t =
-    ASIR::Transport::Beanstalk.new(:address => '127.0.0.1', :port => 30917)
+    ASIR::Transport::Beanstalk.new(:uri => "beanstalk://127.0.0.1:30917/other")
   t.encoder =
     ASIR::Coder::Marshal.new
   t.start_conduit!; sleep 1

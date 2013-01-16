@@ -147,10 +147,10 @@ module ASIR
       LINE_TERMINATOR = "\r\n".freeze
 
       def _after_connect! stream
-        if @tube
+        if t = tube
           _beanstalk(stream,
-                     "use #{@tube}\r\n",
-                     /\AUSING #{@tube}\r\n\Z/)
+                     "use #{t}\r\n",
+                     /\AUSING #{t}\r\n\Z/)
         end
       end
 
@@ -162,9 +162,9 @@ module ASIR
                            :try_sleep => 1,
                            :try_sleep_increment => 0.1,
                            :try_sleep_max => 10) do | stream |
-          if @tube
+          if t = tube
             _beanstalk(stream,
-                       "watch #{@tube}\r\n",
+                       "watch #{t}\r\n",
                        /\AWATCHING (\d+)\r\n\Z/)
           end
         end
