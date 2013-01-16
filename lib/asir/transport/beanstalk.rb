@@ -9,6 +9,7 @@ module ASIR
       attr_accessor :priority, :delay, :ttr
 
       def initialize *args
+        @one_way = true
         self.scheme_default ||= 'beanstalk'
         self.host_default   ||= '127.0.0.1'
         self.port_default   ||= 11300
