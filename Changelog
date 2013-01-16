@@ -1,3 +1,14 @@
+2013-01-16  Kurt A. Stephens  <ks.github@kurtstephens.com>
+
+	* v1.2.3: New version: bug fixes.
+	* one_way: by default.
+	* reserve: Fix Channel close on reserve error.
+	* flush: stream.flush can cause protocol errors.
+	* delete: Handle job deletion in #_after_invoke_message since #one_way.
+	* tube: Correctly handle /tube uri.
+	* beanstalkd: handle 1MB jobs.
+	* stop: Correctly handle #stop! during block IO during reserve.
+
 2012-12-28  Kurt A. Stephens  <ks.github@kurtstephens.com>
 
 	* v1.2.0: New version.
