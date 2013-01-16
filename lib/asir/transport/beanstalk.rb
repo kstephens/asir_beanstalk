@@ -84,7 +84,7 @@ module ASIR
 
       # !SLIDE
       # Sends the encoded Result payload String.
-      def _send_result state
+      def _after_invoke_message state
         #
         # There is a possibility here the following could happen:
         #
