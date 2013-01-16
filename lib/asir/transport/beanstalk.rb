@@ -75,7 +75,7 @@ module ASIR
           rescue ::Exception => exc
             _log { [ :_receive_message, :exception, exc ] }
             additional_data[:beanstalk_error] = exc
-            channel.close
+            state.in_stream.close
             raise exc
           end
         end
