@@ -62,10 +62,11 @@ module ASIR
         additional_data = state.additional_data ||= { }
         state.in_stream.with_stream! do | stream |
           begin
-            match =
+            match = with_force_stop! do
               _beanstalk(stream,
-                         RESERVE,
-                         /\ARESERVED (\d+) (\d+)\r\n\Z/)
+               RESERVE,
+               /\ARESERVED (\d+) (\d+)\r\n\Z/)
+            end
             additional_data[:beanstalk_job_id] = match[1].to_i
             additional_data[:beanstalk_message_size] =
               size = match[2].to_i
