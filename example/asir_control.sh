@@ -12,7 +12,7 @@ args="${args:-ALL}"
 
 case "$args"
 in
-  *resque*|*ALL*)
+  *beanstalk*|*ALL*)
 
 $asir start beanstalk conduit
 sleep 1
@@ -25,6 +25,7 @@ $asir pid beanstalk worker
 if $asir alive beanstalk worker; then
   echo "resque worker alive"
 fi
+# exit 0
 
 ruby "$dir/asir_control_client_beanstalk.rb"
 sleep 1

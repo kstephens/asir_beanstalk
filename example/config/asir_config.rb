@@ -38,7 +38,7 @@ when :transport
   case asir.adjective
   when :beanstalk
     require 'asir/transport/beanstalk'
-    transport = ASIR::Transport::Beanstalk.new
+    transport = ASIR::Transport::Beanstalk.new(:uri => "tcp://localhost:31001/test0")
   else
     raise "Cannot configure Transport for #{asir.adjective}"
   end
@@ -48,8 +48,11 @@ when :transport
   transport._log_enabled = true
   # transport.verbose = 3
   transport.on_exception =
-    lambda { | transport, exc, phase, message, result |
-      error_transport.send_request(message)
+    lambda { | transport, exc, phase, state |
+      $stderr.puts "ERROR: #{transport} #{exc} #{phase}"
+      if state.message
+        error_transport.send_message(state.message)
+      end
     }
 
   transport

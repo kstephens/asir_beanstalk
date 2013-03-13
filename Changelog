@@ -1,3 +1,8 @@
+2012-03-12  Kurt A. Stephens  <ks.github@kurtstephens.com>
+
+	* v1.2.5: New Version: Test fixes.
+	* Fixed example/asir_control.sh.
+
 2012-02-01  Kurt A. Stephens  <ks.github@kurtstephens.com>
 
 	* v1.2.4: New Version: Bug fixes.
