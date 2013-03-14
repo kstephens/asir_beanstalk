@@ -85,12 +85,13 @@ describe "ASIR::Transport::Beanstalk" do
         s.should == :NOT_FOUND
       end
 
-      it "should be able to get status" do
-        s = t.status
+      it "should be able to get conduit_status" do
+        s = t.conduit_status
         s = s[:beanstalkd]
         s.should_not == nil
         s[:stats].class.should == Hash
         s[:stats_tube].class.should == Hash
+        s[:response_time].class.should == Float
       end
 
       context "with a sent message" do

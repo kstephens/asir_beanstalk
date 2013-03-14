@@ -131,13 +131,14 @@ module ASIR
       # !SLIDE
       # Beanstalk protocol support
 
-      def status
-        {
-          :beanstalkd => {
-            :stats => stats,
-            :stats_tube => tube && stats_tube,
-          }
+      def conduit_status
+        t0 = Time.now
+        x = {
+          :stats => stats,
+          :stats_tube => tube && stats_tube,
         }
+        x[:response_time] = Time.now - t0
+        { :beanstalkd => x }
       end
 
       def stats
