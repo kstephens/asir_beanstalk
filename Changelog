@@ -1,6 +1,12 @@
 2012-03-14  Kurt A. Stephens  <ks.github@kurtstephens.com>
 
-	* v1.2.7: renamed #status to #conduit_status.
+	* v1.2.8: New Version: Additional functionality.
+	* Support #conduit_host.
+
+2012-03-14  Kurt A. Stephens  <ks.github@kurtstephens.com>
+
+	* v1.2.7: New Version: changed API
+	* Renamed #status to #conduit_status.
 
 2012-03-13  Kurt A. Stephens  <ks.github@kurtstephens.com>
 

@@ -10,7 +10,9 @@ describe "ASIR::Transport::Beanstalk" do
                                          :encoder => ASIR::Coder::Marshal.new,
                                          :uri => "beanstalk://localhost:31033/spec",
                                          :conduit_options => {
+                                           :bind_host => '127.0.0.1',
                                            :pid_file => "/tmp/asir-beanstalk-test.pid",
+                                           :verbose => 1,
                                          },
                                          :verbose => 9,
                                          :_logger => $stderr,
@@ -22,8 +24,9 @@ describe "ASIR::Transport::Beanstalk" do
       ASIR::Transport::Beanstalk.new
     end
 
-  it "should default to localhost:11300" do
+  it "should default to 127.0.0.1:11300" do
     t.host.should == '127.0.0.1'
+    t.conduit_host.should == t.host
     t.host_default.should == '127.0.0.1'
     t.port.should == 11300
     t.port_default.should == 11300
@@ -37,6 +40,7 @@ describe "ASIR::Transport::Beanstalk" do
     t.uri = "beanstalk://host:12345/tube"
     t.scheme.should == 'beanstalk'
     t.host.should == 'host'
+    t.conduit_host.should == t.host
     t.port.should == 12345
     t.tube.should == 'tube'
     t.path.should == '/tube'
@@ -48,11 +52,25 @@ describe "ASIR::Transport::Beanstalk" do
     t.tube = 'tube'
     t.uri.should == "beanstalk://host:12345/tube"
   end
+
+    it "should handle an alternate conduit_host" do
+      t.uri = "beanstalk://host:12345/tube"
+      t.conduit_host = '0.0.0.0'
+      t.host.should == 'host'
+      t.conduit_host.should == '0.0.0.0'
+    end
   end
 
-  context "with started beanstalk server" do
+  context "with started beanstalk conduit" do
     before :all do
       $transport ||= t
+      t.port.should == 31033
+      t.conduit_options = {
+        :bind_host => '127.0.0.1',
+        :verbose => 1,
+      }
+      t.conduit_host.should == '127.0.0.1'
+      t.conduit_host.should_not == t.host
       t.start_conduit!
       sleep 1
     end

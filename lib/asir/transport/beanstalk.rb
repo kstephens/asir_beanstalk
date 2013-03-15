@@ -236,9 +236,12 @@ module ASIR
       end
 
       def _start_conduit!
+        host = conduit_host
         opt = host ? "-l #{host} " : ""
         cmd = "beanstalkd #{opt}-p #{port} -z #{1 * 1024 * 1024} #{@conduit_options[:beanstalkd_options]}"
-        $stderr.puts "  #{cmd}" rescue nil if @conduit_options[:verbose]
+        if @conduit_options[:verbose]
+          $stderr.puts "  #{cmd}" rescue nil
+        end
         exec(cmd)
       end
     end
